@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Logout - Gas Utility Service{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h2>Logged Out</h2>
+            </div>
+            <div class="card-body">
+                <h3>You have been successfully logged out</h3>
+                <div class="border-top pt-3">
+                    <small class="text-muted">
+                        <a href="{% url 'login' %}">Log In Again</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

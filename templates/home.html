@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome - Gas Utility Service{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10 text-center">
+            <h1 class="display-4 mb-4">Gas Utility Customer Service Portal</h1>
+            <p class="lead mb-5">Submit service requests, track their status, and manage your account in one place.</p>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Submit Requests</h3>
+                    <p class="card-text">Submit service requests online with all necessary details and attachments.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Track Status</h3>
+                    <p class="card-text">Check the status of your service requests and view updates in real-time.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Account Management</h3>
+                    <p class="card-text">View and manage your account information and service history.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            {% if user.is_authenticated %}
+            <a href="{% url 'customer_dashboard' %}" class="btn btn-primary btn-lg">Go to Dashboard</a>
+            {% else %}
+            <div class="d-flex justify-content-center">
+                <a href="{% url 'login' %}" class="btn btn-primary btn-lg mx-2">Login</a>
+                <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg mx-2">Register</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

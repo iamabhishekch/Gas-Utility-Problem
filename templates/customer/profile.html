@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Profile - Gas Utility Service{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h1 class="mb-4">Your Profile</h1>
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3>Personal Information</h3>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-4 font-weight-bold">Name:</div>
+                    <div class="col-md-8">{{ customer.user.first_name }} {{ customer.user.last_name }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 font-weight-bold">Email:</div>
+                    <div class="col-md-8">{{ customer.user.email }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 font-weight-bold">Account Number:</div>
+                    <div class="col-md-8">{{ customer.account_number }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 font-weight-bold">Address:</div>
+                    <div class="col-md-8">{{ customer.address }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 font-weight-bold">Phone Number:</div>
+                    <div class="col-md-8">{{ customer.phone_number }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 font-weight-bold">Customer Since:</div>
+                    <div class="col-md-8">{{ customer.customer_since }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Help & Documentation - Gas Utility Service{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h1>Help & Documentation</h1>
+            <p class="lead">Find answers to common questions about using the Gas Utility Customer Portal</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="list-group">
+                <a href="#account" class="list-group-item list-group-item-action">Account Management</a>
+                <a href="#service-requests" class="list-group-item list-group-item-action">Service Requests</a>
+                <a href="#billing" class="list-group-item list-group-item-action">Billing & Payments</a>
+                <a href="#emergency" class="list-group-item list-group-item-action">Emergency Services</a>
+                <a href="#contact" class="list-group-item list-group-item-action">Contact Support</a>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card mb-4" id="account">
+                <div class="card-header">
+                    <h3>Account Management</h3>
+                </div>
+                <div class="card-body">
+                    <h5>How do I update my account information?</h5>
+                    <p>You can update your personal information by visiting your <a href="{% url 'customer_profile' %}">profile page</a>.</p>
+
+                    <h5>How do I change my password?</h5>
+                    <p>To change your password, go to your profile and select the "Change Password" option.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4" id="service-requests">
+                <div class="card-header">
+                    <h3>Service Requests</h3>
+                </div>
+                <div class="card-body">
+                    <h5>How do I submit a new service request?</h5>
+                    <p>You can submit a new service request by clicking on the "Submit New Service Request" button on your dashboard or directly from the <a href="{% url 'create_service_request' %}">service request form</a>.</p>
+
+                    <h5>How can I track my service requests?</h5>
+                    <p>All your service requests are listed on your <a href="{% url 'customer_dashboard' %}">dashboard</a> with their current status. You can click on any request to view more details.</p>
+
+                    <h5>What documentation should I include with my request?</h5>
+                    <p>When submitting a service request, you can attach relevant photos, documents, or other files that might help our team understand and address your issue more efficiently.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4" id="billing">
+                <div class="card-header">
+                    <h3>Billing & Payments</h3>
+                </div>
+                <div class="card-body">
+                    <p>Billing and payment features are coming soon! Check back for updates on viewing and paying your bills online.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4" id="emergency">
+                <div class="card-header">
+                    <h3>Emergency Services</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger">
+                        <h5>Gas Leak or Emergency?</h5>
+                        <p><strong>Do not use this online portal for emergencies.</strong></p>
+                        <p>If you smell gas or suspect a leak, please:</p>
+                        <ol>
+                            <li>Leave the area immediately</li>
+                            <li>Call our emergency line: <strong>1-800-GAS-LEAK (1-800-427-5325)</strong></li>
+                            <li>Do not return until the area has been declared safe</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4" id="contact">
+                <div class="card-header">
+                    <h3>Contact Support</h3>
+                </div>
+                <div class="card-body">
+                    <p>For additional help that isn't covered in this documentation:</p>
+                    <ul>
+                        <li>Customer Service: 1-800-555-1234 (Monday-Friday, 8 AM - 6 PM)</li>
+                        <li>Email: support@gasutility.example.com</li>
+                        <li>Submit a <a href="{% url 'create_service_request' %}">general inquiry</a> through our service request system</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

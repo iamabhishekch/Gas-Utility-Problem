@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Support Dashboard - Gas Utility Service{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h2 class="card-title">Support Staff Dashboard</h2>
+                <p class="card-text">
+                    Staff ID: <strong>{{ staff.staff_id }}</strong> | 
+                    Department: <strong>{{ staff.department }}</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-12">
+        <h3 class="mb-3">Your Assigned Requests</h3>
+        {% if assigned_requests %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in assigned_requests %}
+                        <tr>
+                            <td>{{ request.id }}</td>
+                            <td>{{ request.customer.user.first_name }} {{ request.customer.user.last_name }}</td>
+                            <td>{{ request.title }}</td>
+                            <td>
+                                <span class="request-status status-{{ request.status|lower }}">
+                                    {{ request.get_status_display }}
+                                </span>
+                            </td>
+                            <td>{{ request.created_at|date:"M d, Y" }}</td>
+                            <td>{{ request.updated_at|date:"M d, Y" }}</td>
+                            <td>
+                                <a href="{% url 'support_request_detail' request.id %}" class="btn btn-sm btn-info">View & Update</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                You don't have any assigned requests.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="mb-3">Unassigned Requests</h3>
+        {% if unassigned_requests %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer</th>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in unassigned_requests %}
+                        <tr>
+                            <td>{{ request.id }}</td>
+                            <td>{{ request.customer.user.first_name }} {{ request.customer.user.last_name }}</td>
+                            <td>{{ request.title }}</td>
+                            <td>{{ request.request_type.name }}</td>
+                            <td>{{ request.created_at|date:"M d, Y" }}</td>
+                            <td>
+                                <a href="{% url 'support_request_detail' request.id %}" class="btn btn-sm btn-info">View & Assign</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-success">
+                There are no unassigned requests. Great job!
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

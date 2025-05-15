@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Gas Utility Service{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h2 class="card-title">Welcome, {{ customer.user.first_name }}!</h2>
+                <p class="card-text">
+                    Account number: <strong>{{ customer.account_number }}</strong>
+                </p>
+                <a href="{% url 'create_service_request' %}" class="btn btn-primary">Submit New Service Request</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Recent Service Requests</h3>
+        {% if service_requests %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in service_requests|slice:":5" %}
+                        <tr>
+                            <td>{{ request.id }}</td>
+                            <td>{{ request.title }}</td>
+                            <td>{{ request.request_type.name }}</td>
+                            <td>
+                                <span class="request-status status-{{ request.status|lower }}">
+                                    {{ request.get_status_display }}
+                                </span>
+                            </td>
+                            <td>{{ request.created_at|date:"M d, Y" }}</td>
+                            <td>{{ request.updated_at|date:"M d, Y" }}</td>
+                            <td>
+                                <a href="{% url 'service_request_detail' request.id %}" class="btn btn-sm btn-info">View Details</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if service_requests.count > 5 %}
+                <a href="{% url 'service_request_list' %}" class="btn btn-outline-primary">View All Requests</a>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-info">
+                You haven't submitted any service requests yet.
+                <a href="{% url 'create_service_request' %}">Create your first request</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

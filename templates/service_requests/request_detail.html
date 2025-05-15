@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Service Request Detail - Gas Utility Service{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Service Request #{{ service_request.id }}</h1>
+            <a href="{% url 'service_request_list' %}" class="btn btn-outline-primary">Back to All Requests</a>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h3 class="m-0">{{ service_request.title }}</h3>
+                <span class="request-status status-{{ service_request.status|lower }}">
+                    {{ service_request.get_status_display }}
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Request Type:</div>
+                    <div class="col-md-9">{{ service_request.request_type.name }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Description:</div>
+                    <div class="col-md-9">{{ service_request.description }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Submitted On:</div>
+                    <div class="col-md-9">{{ service_request.created_at }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Last Updated:</div>
+                    <div class="col-md-9">{{ service_request.updated_at }}</div>
+                </div>
+                
+                {% if service_request.status == 'COMPLETED' %}
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Resolved On:</div>
+                    <div class="col-md-9">{{ service_request.resolved_at }}</div>
+                </div>
+                {% endif %}
+                
+                {% if service_request.assigned_to %}
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Assigned To:</div>
+                    <div class="col-md-9">{{ service_request.assigned_to.user.first_name }} {{ service_request.assigned_to.user.last_name }}</div>
+                </div>
+                {% endif %}
+                
+                {% if service_request.attachments.all %}
+                <div class="row mb-3">
+                    <div class="col-md-3 font-weight-bold">Attachments:</div>
+                    <div class="col-md-9">
+                        {% for attachment in service_request.attachments.all %}
+                        <div class="mb-1">
+                            <a href="{{ attachment.file.url }}" target="_blank" class="btn btn-sm btn-outline-info">
+                                <i class="fas fa-paperclip"></i> Attachment #{{ forloop.counter }}
+                            </a>
+                            <small class="text-muted ml-2">Uploaded on {{ attachment.uploaded_at }}</small>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% if service_request.notes.all %}
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h3>Updates from Support</h3>
+            </div>
+            <div class="card-body">
+                {% for note in service_request.notes.all %}
+                {% if not note.internal_only %}
+                <div class="card mb-3">
+                    <div class="card-header d-flex justify-content-between">
+                        <span>{{ note.staff.user.first_name }} {{ note.staff.user.last_name }}</span>
+                        <small>{{ note.created_at }}</small>
+                    </div>
+                    <div class="card-body">
+                        <p>{{ note.content }}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
